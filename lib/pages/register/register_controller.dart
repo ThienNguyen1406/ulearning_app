@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ulearning_app/common/value/constant.dart';
 import 'package:ulearning_app/common/widgets/flutter_toast.dart';
 import 'package:ulearning_app/pages/register/bloc/register_blocs.dart';
 
@@ -41,6 +42,10 @@ class RegisterController {
         await credentail.user?.sendEmailVerification();
         //set update username
         await credentail.user?.updateDisplayName(userName);
+
+        String photoUrl = "uploads/default.png";
+
+        await credentail.user?.updatePhotoURL(photoUrl);
         toastInfo(
           msg:
               "An email has been sent to your registered email. To activitve it click on the link",

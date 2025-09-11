@@ -1,6 +1,12 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:ulearning_app/common/api/user_api.dart';
+import 'package:ulearning_app/common/entities/entities.dart';
 import 'package:ulearning_app/common/value/constant.dart';
 import 'package:ulearning_app/common/widgets/flutter_toast.dart';
 import 'package:ulearning_app/global.dart';
@@ -44,13 +50,22 @@ class SignInController {
 
           var user = credentail.user;
           if (user != null) {
-            //we got verified user form firebase
-            Global.storageService.setString(
-              AppConstant.STORAGE_USER_TOKEN_KEY,
-              "12345678",
-            );
+            String? displayName = user.displayName;
+            String? email = user.email;
+            String? id = user.uid;
+            String? photoUrl = user.photoURL;
+
+            LoginRequestEntity loginRequestEntity = LoginRequestEntity();
+            loginRequestEntity.avatar = photoUrl;
+            loginRequestEntity.name = displayName;
+            loginRequestEntity.email = email;
+            loginRequestEntity.open_id = id;
+            //type 1 is login by email
+            loginRequestEntity.type = 1;
+
+            asyncPostAllData(loginRequestEntity);
             toastInfo(msg: "Login successful");
-            Navigator.of(context).pushNamed(AppRouter.application);
+            // Navigator.of(context).pushNamed(AppRouter.application);
           } else {
             // we have error getting user from firebase
             toastInfo(msg: "Currently you are not a user of this app");
@@ -71,6 +86,55 @@ class SignInController {
       }
     } catch (e) {
       print(e.toString());
+    }
+  }
+
+  Future<void> asyncPostAllData(LoginRequestEntity loginRequestEntity) async {
+    EasyLoading.show(
+      indicator: CircularProgressIndicator(),
+      maskType: EasyLoadingMaskType.clear,
+      dismissOnTap: true,
+    );
+
+    try {
+      var result = await UserAPI.login(param: loginRequestEntity);
+
+      if (result.code == 200 && result.data != null) {
+        // Kiểm tra token tồn tại
+        if (result.data!.access_token == null ||
+            result.data!.access_token!.isEmpty) {
+          EasyLoading.dismiss();
+          toastInfo(msg: "Invalid token received");
+          return;
+        }
+
+        await Global.storageService.setString(
+          AppConstant.STORAGE_USER_PROFILE_KEY,
+          jsonEncode(result.data!),
+        );
+
+        await Global.storageService.setString(
+          AppConstant.STORAGE_USER_TOKEN_KEY,
+          result.data!.access_token!,
+        );
+
+        EasyLoading.dismiss();
+
+        // Sử dụng Navigator với context đảm bảo
+        if (context.mounted) {
+          Navigator.of(context).pushNamedAndRemoveUntil(
+            AppRouter.application, 
+            (route) => false,
+          );
+        }
+      } else {
+        EasyLoading.dismiss();
+        toastInfo(msg: "Login failed: ${result.message ?? 'Unknown error'}");
+      }
+    } catch (e) {
+      EasyLoading.dismiss();
+      print("Login error: ${e.toString()}");
+      toastInfo(msg: "Login error: ${e.toString()}");
     }
   }
 }

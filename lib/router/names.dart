@@ -4,4 +4,6 @@ class AppRouter {
   static const String welcome = '/welcome';
   static const String register = '/register';
   static const String application = '/application';
+  static const String homepage = '/homepage';
+  static const String settings = '/settings';
 }

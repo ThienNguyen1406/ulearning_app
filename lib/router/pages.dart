@@ -4,6 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ulearning_app/global.dart';
 import 'package:ulearning_app/pages/application/application_page.dart';
 import 'package:ulearning_app/pages/application/bloc/app_blocs.dart';
+import 'package:ulearning_app/pages/home/bloc/home_page_blocs.dart';
+import 'package:ulearning_app/pages/home/home_page.dart';
+import 'package:ulearning_app/pages/profile/settings/bloc/setting_blocs.dart';
+import 'package:ulearning_app/pages/profile/settings/settings_page.dart';
 import 'package:ulearning_app/pages/register/bloc/register_blocs.dart';
 import 'package:ulearning_app/pages/register/register.dart';
 import 'package:ulearning_app/pages/sign_in/bloc/signin_blocs.dart';
@@ -13,27 +17,42 @@ import 'package:ulearning_app/pages/welcome/welcome.dart';
 import 'package:ulearning_app/router/names.dart';
 
 class AppPages {
-  static List<PageEntiy> routes() {
+  static List<PageEntity> routes() {
     return [
-      PageEntiy(
+      PageEntity(
         route: AppRouter.initial,
         page: Welcome(),
         bloc: BlocProvider(create: (_) => WelcomeBlocs()),
       ),
-      PageEntiy(
+      PageEntity(
         route: AppRouter.signIn,
         page: SignIn(),
         bloc: BlocProvider(create: (_) => SigninBlocs()),
       ),
-      PageEntiy(
+      PageEntity(
         route: AppRouter.register,
         page: Register(),
         bloc: BlocProvider(create: (_) => RegisterBlocs()),
       ),
-      PageEntiy(
+      PageEntity(
         route: AppRouter.application,
         page: ApplicationPage(),
         bloc: BlocProvider(create: (_) => AppBlocs()),
+      ),
+      PageEntity(
+        route: AppRouter.application,
+        page: HomePage(),
+        bloc: BlocProvider(create: (_) => AppBlocs()),
+      ),
+      PageEntity(
+        route: AppRouter.homepage,
+        page: HomePage(),
+        bloc: BlocProvider(create: (_) => HomePageBlocs()),
+      ),
+      PageEntity(
+        route: AppRouter.settings,
+        page: SettingsPage(),
+        bloc: BlocProvider(create: (_) => SettingBlocs()),
       ),
     ];
   }
@@ -78,10 +97,10 @@ class AppPages {
 }
 
 //unify BlocProvider and routers and pages
-class PageEntiy {
+class PageEntity {
   String route;
   Widget page;
   dynamic bloc;
 
-  PageEntiy({required this.route, required this.page, this.bloc});
+  PageEntity({required this.route, required this.page, this.bloc});
 }

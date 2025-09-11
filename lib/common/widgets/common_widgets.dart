@@ -132,7 +132,6 @@ Widget buildTextField(
 
 Widget forgotPassword() {
   return Container(
-    // margin: EdgeInsets.only(left: 25.w),
     width: 260.w,
     height: 44.h,
     child: GestureDetector(

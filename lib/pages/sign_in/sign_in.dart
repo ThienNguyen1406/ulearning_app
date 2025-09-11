@@ -9,6 +9,7 @@ import 'package:ulearning_app/router/names.dart';
 // import 'package:ulearning_app/pages/sign_in/widgets/sign_in_widget.dart';
 import 'package:ulearning_app/router/routes.dart';
 import 'package:ulearning_app/common/widgets/common_widgets.dart';
+
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
 
@@ -68,6 +69,7 @@ class _SignInState extends State<SignIn> {
                             },
                           ),
                           forgotPassword(),
+                          SizedBox(height: 35.h),
                           buildLogInAdnRegButton("Log in", "login", () {
                             SignInController(
                               context: context,

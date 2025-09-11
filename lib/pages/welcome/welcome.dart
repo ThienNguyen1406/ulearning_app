@@ -140,7 +140,13 @@ class _WelcomeState extends State<Welcome> {
                 AppConstant.STORAGE_DEVICE_OPEN_TIME,
                 true,
               );
-              Navigator.of(context).pushNamed(AppRouter.signIn);
+              Navigator.of(
+                context,
+              ).pushNamedAndRemoveUntil(AppRouter.signIn, (route) => false);
+
+              //   Navigator.of(
+              //   context,
+              // ).pushNamedAndRemoveUntil(AppRouter.application, (route) => false);
             }
           },
           child: Container(
