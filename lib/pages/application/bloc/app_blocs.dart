@@ -8,4 +8,6 @@ class AppBlocs extends Bloc<AppEvents, AppStates> {
       emit(AppStates(index: event.index));
     });
   }
+
+
 }

@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:ulearning_app/common/api/user_api.dart';
@@ -21,7 +20,7 @@ class SignInController {
   Future<void> handleSignIn(String type) async {
     try {
       if (type == "email") {
-        //BlocProvider.of<SignInBlocs>(context).state
+        BlocProvider.of<SigninBlocs>(context).state;
         final state = context.read<SigninBlocs>().state;
         String emailAddress = state.email;
         String password = state.password;
@@ -65,7 +64,6 @@ class SignInController {
 
             asyncPostAllData(loginRequestEntity);
             toastInfo(msg: "Login successful");
-            // Navigator.of(context).pushNamed(AppRouter.application);
           } else {
             // we have error getting user from firebase
             toastInfo(msg: "Currently you are not a user of this app");
@@ -107,25 +105,20 @@ class SignInController {
           toastInfo(msg: "Invalid token received");
           return;
         }
-
         await Global.storageService.setString(
           AppConstant.STORAGE_USER_PROFILE_KEY,
           jsonEncode(result.data!),
         );
-
         await Global.storageService.setString(
           AppConstant.STORAGE_USER_TOKEN_KEY,
           result.data!.access_token!,
         );
 
         EasyLoading.dismiss();
-
-        // Sử dụng Navigator với context đảm bảo
         if (context.mounted) {
-          Navigator.of(context).pushNamedAndRemoveUntil(
-            AppRouter.application, 
-            (route) => false,
-          );
+          Navigator.of(
+            context,
+          ).pushNamedAndRemoveUntil(AppRouter.application, (route) => false);
         }
       } else {
         EasyLoading.dismiss();

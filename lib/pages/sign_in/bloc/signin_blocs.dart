@@ -12,12 +12,10 @@ class SigninBlocs extends Bloc<SignInEvents, SigninStates> {
   }
 
   void _emailEvent(EmailEvent event, Emitter<SigninStates> emit) {
-    // print("My email is ${event.email}");
     emit(state.copyWith(email: event.email));
   }
 
   void _passwordEvent(PassWordEvent event, Emitter<SigninStates> emit) {
-    //  print("My password is ${event.password}");
     emit(state.copyWith(password: event.password));
   }
 }

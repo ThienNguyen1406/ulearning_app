@@ -6,4 +6,5 @@ class AppRouter {
   static const String application = '/application';
   static const String homepage = '/homepage';
   static const String settings = '/settings';
+    static const String courseDetail = '/courseDetail';
 }

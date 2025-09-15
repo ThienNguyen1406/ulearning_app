@@ -9,7 +9,7 @@ import 'package:ulearning_app/pages/home/home_controller.dart';
 import 'package:ulearning_app/pages/home/widgets/home_page_widgets.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const  HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: buildAppBar(_homeController.userProfile.avatar.toString()),
+      appBar: buildAppBar("_homeController.userProfile.avatr.toString()"),
       body: BlocBuilder<HomePageBlocs, HomePageStates>(
         builder: (context, state) {
           return Container(
@@ -47,7 +47,8 @@ class _HomePageState extends State<HomePage> {
                 ),
                 SliverToBoxAdapter(
                   child: buildHomePageText(
-                    _homeController.userProfile.name!,
+                    // _homeController.userProfile!.name!,
+                    "Guest",
                     color: AppColors.primaryText,
                     top: 5,
                   ),
@@ -65,13 +66,13 @@ class _HomePageState extends State<HomePage> {
                       crossAxisSpacing: 15,
                       childAspectRatio: 1.6,
                     ),
-                    delegate: SliverChildBuilderDelegate(childCount: 4, (
-                      BuildContext context,
-                      int index,
-                    ) {
+                    delegate: SliverChildBuilderDelegate(childCount: state.courseItem.length, (
+                        BuildContext context,
+                        int index,
+                        ) {
                       return GestureDetector(
                         onTap: () {},
-                        child: courseGrid(),
+                        child: courseGrid(state.courseItem[index]),
                       );
                     }),
                   ),

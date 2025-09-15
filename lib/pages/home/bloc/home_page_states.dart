@@ -1,9 +1,16 @@
+import 'package:ulearning_app/common/entities/course.dart';
+
 class HomePageStates {
-  HomePageStates({this.index = 0});
+  HomePageStates(
+      { this.courseItem =const <CourseItem>[],
+        this.index = 0});
 
   final int index;
-
-  HomePageStates copyWith({int? index}) {
-    return HomePageStates(index: index ?? this.index);
+  final List<CourseItem> courseItem;
+  HomePageStates copyWith({int? index, List<CourseItem>? courseItem}) {
+    return HomePageStates(
+        courseItem:courseItem ?? this.courseItem,
+        index: index ?? this.index
+    );
   }
 }
