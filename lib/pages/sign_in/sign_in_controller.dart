@@ -62,7 +62,7 @@ class SignInController {
             //type 1 is login by email
             loginRequestEntity.type = 1;
 
-            asyncPostAllData(loginRequestEntity);
+            await asyncPostAllData(loginRequestEntity);
             toastInfo(msg: "Login successful");
           } else {
             // we have error getting user from firebase
