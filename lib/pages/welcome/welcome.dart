@@ -146,7 +146,7 @@ class _WelcomeState extends State<Welcome> {
 
               //   Navigator.of(
               //   context,
-              // ).pushNamedAndRemoveUntil(AppRouter.application, (route) => false);
+              // ).pushNamedAndRemoveUntil(AppRouter.courseDetail, (route) => false);
             }
           },
           child: Container(

@@ -260,7 +260,7 @@ Widget courseGrid(CourseItem item) {
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(15.w),
       image: DecorationImage(
-        image: NetworkImage(AppConstant.SER_UPLOADS + item.thumbnail!),
+        image: NetworkImage(AppConstant.SERVER_UPLOADS + item.thumbnail!),
         fit: BoxFit.fill,
       ),
     ),

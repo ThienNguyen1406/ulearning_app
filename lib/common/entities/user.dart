@@ -9,6 +9,7 @@ class LoginRequestEntity {
   String? avatar;
   String? open_id;
   int? online;
+  String? password;
 
   LoginRequestEntity({
     this.type,
@@ -19,6 +20,7 @@ class LoginRequestEntity {
     this.avatar,
     this.open_id,
     this.online,
+    this.password,
   });
 
   Map<String, dynamic> toJson() => {
@@ -30,21 +32,22 @@ class LoginRequestEntity {
     "avatar": avatar,
     "open_id": open_id,
     "online": online,
+    "password": password,
   };
 }
 
 //api post response msg
 class UserLoginResponseEntity {
   int? code;
-  String? msg;
+  String? message;
   UserItem? data;
 
-  UserLoginResponseEntity({this.code, this.msg, this.data});
+  UserLoginResponseEntity({this.code, this.message, this.data});
 
   factory UserLoginResponseEntity.fromJson(Map<String, dynamic> json) {
     return UserLoginResponseEntity(
       code: json["code"],
-      msg: json["msg"],
+      message: json["msg"],
       data: json["data"] != null ? UserItem.fromJson(json["data"]) : null,
     );
   }

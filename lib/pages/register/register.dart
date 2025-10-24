@@ -6,7 +6,7 @@ import 'package:ulearning_app/common/widgets/common_widgets.dart';
 import 'package:ulearning_app/pages/register/bloc/register_blocs.dart';
 import 'package:ulearning_app/pages/register/bloc/register_events.dart';
 import 'package:ulearning_app/pages/register/bloc/register_states.dart';
-import 'package:ulearning_app/router/routes.dart';
+
 
 class Register extends StatefulWidget {
   const Register({super.key});
